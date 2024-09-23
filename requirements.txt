@@ -1,7 +1,0 @@
-streamlit==1.26.0
-plotly
-wordcloud
-transformers
-openpyxl
-deep-translator
-nltk
