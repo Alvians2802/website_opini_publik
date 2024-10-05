@@ -103,7 +103,7 @@ def app():
     choice = st.sidebar.selectbox('Menu', menu)
 
     # Logic when "Data" is selected from menu
-    if choice == 'Data':
+    if choice == 'Data Periode Agustus 2023-2024':
         # Load dataset
         df = pd.read_excel("Dataset_twitter.xlsx")  # Ganti dengan nama file Excel benar
         
@@ -138,7 +138,7 @@ def app():
             st.subheader("Top Usernames")
             display_top_usernames(df)
 
-    elif choice == 'Simulasi':
+    elif choice == 'Data Lainnya':
         st.subheader("Unggah File Data Anda")
         
         # File upload widget
