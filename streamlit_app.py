@@ -64,11 +64,6 @@ def display_top_frequent_wordcloud(df, num_words=50):
     plt.figure(figsize=(12, 15))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
-    
-    # Menambahkan judul untuk word cloud kedua
-    st.subheader("Word Cloud Terkait Kemenkeu")
-    
-    st.pyplot(plt, use_container_width=True)
 
 def display_sentiment_distribution(df):
     sentiment_counts = df['sentimen'].value_counts()
