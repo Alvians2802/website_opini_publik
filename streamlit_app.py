@@ -54,16 +54,8 @@ def display_top_frequent_wordcloud(df, num_words=50):
     words = nltk.word_tokenize(tweet_text)
     word_freq = Counter(words)
     
-    # Ambil 50 kata dengan frekuensi tertinggi
-    most_common_words = word_freq.most_common(num_words)
-    most_common_words_dict = dict(most_common_words)
-
-    # Buat wordcloud dari kata-kata tersebut
-    wordcloud = WordCloud(width=800, height=550, background_color='white').generate_from_frequencies(most_common_words_dict)
     
-    plt.figure(figsize=(12, 15))
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis("off")
+    
 
 def display_sentiment_distribution(df):
     sentiment_counts = df['sentimen'].value_counts()
