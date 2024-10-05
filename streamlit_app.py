@@ -91,14 +91,15 @@ def display_top_locations(df):
     st.plotly_chart(fig, use_container_width=True)
 
 def app():
-    st.title("SATUKU (Sentimen Analitik Terhadap Kemenkeu)")
+    st.title("SATUKU")
+    st.subheader("(Sentimen Analitik Kemenkeu)")
 
     # Deskripsi aplikasi
     st.write("""
     SATUKU adalah aplikasi yang dirancang untuk menganalisis sentimen publik terhadap Kementerian Keuangan (Kemenkeu) melalui data yang diperoleh dari media sosial platform X. Aplikasi ini menggunakan Machine Learning untuk mengidentifikasi dan membandingkan opini masyarakat, baik yang bersifat positif, negatif, maupun netral.""")
 
     # Sidebar menu
-    menu = ['Data', 'Visualisasi', 'Simulasi']
+    menu = ['Data Periode Agustus 2023-2024', 'Visualisasi', 'Data Lainnya']
     choice = st.sidebar.selectbox('Menu', menu)
 
     # Logic when "Data" is selected from menu
