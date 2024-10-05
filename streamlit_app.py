@@ -3,10 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 from wordcloud import WordCloud
-import nltk
-from collections import Counter
-
-nltk.download('punkt')
 
 def header():
     st.markdown(
@@ -30,8 +26,8 @@ def header():
             padding: 8px;
             text-align: left;
             border: 1px solid #ddd;
-            word-wrap: break-word; /* Enable wrap text */
-            max-width: 200px; /* Set a max-width for the wrap */
+            word-wrap: break-word;
+            max-width: 200px;
         }
         </style>
         """,
@@ -46,16 +42,6 @@ def display_wordcloud(df):
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
     st.pyplot(plt, use_container_width=True)
-
-def display_top_frequent_wordcloud(df, num_words=50):
-    tweet_text = ' '.join(df['Tweet'].astype(str).tolist())
-    
-    # Tokenisasi dan menghitung frekuensi kata
-    words = nltk.word_tokenize(tweet_text)
-    word_freq = Counter(words)
-    
-    
-    
 
 def display_sentiment_distribution(df):
     sentiment_counts = df['sentimen'].value_counts()
@@ -81,20 +67,15 @@ def app():
     st.title("SATUKU")
     st.subheader("(Sentimen Analitik Kemenkeu)")
 
-    # Deskripsi aplikasi
     st.write("""
     SATUKU adalah aplikasi yang dirancang untuk menganalisis sentimen publik terhadap Kementerian Keuangan (Kemenkeu) melalui data yang diperoleh dari media sosial platform X. Aplikasi ini menggunakan Machine Learning untuk mengidentifikasi dan membandingkan opini masyarakat, baik yang bersifat positif, negatif, maupun netral.""")
 
-    # Sidebar menu
     menu = ['Data Periode Agustus 2023-2024', 'Visualisasi', 'Data Lainnya']
     choice = st.sidebar.selectbox('Menu', menu)
 
-    # Logic when "Data" is selected from menu
     if choice == 'Data Periode Agustus 2023-2024':
-        # Load dataset
         df = pd.read_excel("Dataset_twitter.xlsx")  # Ganti dengan nama file Excel benar
         
-        # Membuat tabel dengan wrap text
         st.subheader("Data Tweet")
         st.markdown('<div class="table-wrapper">', unsafe_allow_html=True)
         st.table(df.style.set_table_attributes('class="dataframe"').set_table_styles(
@@ -103,19 +84,14 @@ def app():
         st.markdown('</div>', unsafe_allow_html=True)
 
     elif choice == 'Visualisasi':
-        # Load dataset
         df = pd.read_excel("Dataset_twitter.xlsx")  # Ganti dengan nama file Excel benar
         st.subheader("Pilih Jenis Visualisasi")
         
-        # Opsi visualisasi
         visualization_choice = st.selectbox("Pilih Visualisasi", ['Word Cloud', 'Sentiment Distribution', 'Top Usernames'])
 
         if visualization_choice == 'Word Cloud':
             st.subheader("Word Cloud")
             display_wordcloud(df)
-
-            # Menampilkan Word Cloud kedua untuk 50 kata teratas
-            display_top_frequent_wordcloud(df)
 
         elif visualization_choice == 'Sentiment Distribution':
             st.subheader("Distribusi Sentimen")
@@ -128,12 +104,10 @@ def app():
     elif choice == 'Data Lainnya':
         st.subheader("Unggah File Data Anda")
         
-        # File upload widget
         uploaded_file = st.file_uploader("Pilih file Excel atau CSV", type=["csv", "xlsx"])
 
         if uploaded_file is not None:
             try:
-                # Check if the file is CSV or Excel
                 if uploaded_file.name.endswith('.csv'):
                     df = pd.read_csv(uploaded_file)
                 else:
@@ -142,16 +116,12 @@ def app():
                 st.success("Data berhasil diunggah!")
                 st.write(df)
 
-                # Choose a visualization for the uploaded data
                 st.subheader("Pilih Visualisasi untuk Data yang Diunggah")
                 visualization_choice = st.selectbox("Pilih Visualisasi", ['Word Cloud', 'Sentiment Distribution', 'Top Usernames'])
 
                 if visualization_choice == 'Word Cloud':
                     st.subheader("Word Cloud")
                     display_wordcloud(df)
-
-                    # Menampilkan Word Cloud kedua untuk 50 kata teratas
-                    display_top_frequent_wordcloud(df)
 
                 elif visualization_choice == 'Sentiment Distribution':
                     st.subheader("Distribusi Sentimen")
